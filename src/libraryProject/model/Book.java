@@ -1,6 +1,6 @@
-package test.model;
+package libraryProject.model;
 
-import test.enums.Status;
+import libraryProject.enums.Status;
 
 public class Book {
     private Long bookId;

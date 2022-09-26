@@ -1,11 +1,8 @@
-package test;
+package libraryProject;
 
-import test.dao.Dao;
-import test.enums.Gender;
-import test.model.Book;
-import test.model.Library;
-import test.model.LibraryMember;
-import test.service.impl.LibraryServiceImpl;
+import libraryProject.dao.Dao;
+import libraryProject.model.Library;
+import libraryProject.service.impl.LibraryServiceImpl;
 
 import java.util.Scanner;
 

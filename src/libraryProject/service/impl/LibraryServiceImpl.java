@@ -1,13 +1,11 @@
-package test.service.impl;
+package libraryProject.service.impl;
 
-import test.dao.Dao;
-import test.enums.Status;
-import test.model.Book;
-import test.model.LibraryMember;
-import test.service.LibraryService;
+import libraryProject.dao.Dao;
+import libraryProject.model.Book;
+import libraryProject.model.LibraryMember;
+import libraryProject.service.LibraryService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class LibraryServiceImpl implements LibraryService {

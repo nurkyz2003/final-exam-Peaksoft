@@ -1,6 +1,6 @@
-package test.model;
+package libraryProject.model;
 
-import test.enums.Gender;
+import libraryProject.enums.Gender;
 
 import java.util.ArrayList;
 import java.util.List;
