@@ -23,7 +23,6 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void addLibraryMember(LibraryMember member) {
-
     }
 
     @Override
