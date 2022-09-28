@@ -35,11 +35,7 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void deleteLibraryMemberByID(Long id) {
-        dao.getLibrary().getLibraryMembers()
-                .stream().filter(x -> Objects.equals(x.getMemberId(), id))
-                .findFirst()
-                .ifPresent(x -> dao.getLibrary().getLibraryMembers().remove(x));
-
+        dao.getLibrary().getLibraryMembers().stream().filter(x -> Objects.equals(x.getMemberId(), id)).findFirst().ifPresent(x -> dao.getLibrary().getLibraryMembers().remove(x));
     }
 
     @Override
@@ -49,22 +45,18 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void getLibraryBooks() {
-        for (Book x : this.dao.getLibrary().getBooks()) {
-            if (x.getTitle() != null) {
-                System.out.println("ID " + x.getBookId());
-                System.out.println("Name " + x.getTitle());
-                System.out.println("Currently reading: " + x.getCurrentHolder() + "\n");
-
+        for (Book book : this.dao.getLibrary().getBooks()) {
+            if (book.getTitle() != null) {
+                System.out.println("ID: " + book.getBookId());
+                System.out.println("Name: " + book.getTitle());
+                System.out.println("Currently Reading Books: " + book.getCurrentHolder() + "\n");
             }
         }
     }
 
     @Override
     public void deleteLibraryBookByID(Long id) {
-        dao.getLibrary().getBooks().
-                stream().filter(x -> x.getBookId() == id)
-                .findFirst()
-                .ifPresent(x -> dao.getLibrary().getBooks().remove(x));
+        dao.getLibrary().getBooks().stream().filter(x -> Objects.equals(x.getBookId(), id)).findFirst().ifPresent(x -> dao.getLibrary().getBooks().remove(x));
     }
 
     @Override
@@ -74,24 +66,15 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void addBookToMember() {
-        System.out.print("Введите ID участника чтобы добавить книгу: ");
+        System.out.print("Enter the member's ID to add book: ");
         long membersID = scannerN.nextLong();
-        Optional<LibraryMember> optionalMember =
-                dao.getLibrary().getLibraryMembers().stream()
-                        .filter(x -> x.getMemberId() == membersID)
-                        .filter(x -> x.getCurrentlyReading() == null).findFirst();
-
-        System.out.print("Введите ID книги чтобы добавить к участнику: ");
+        Optional<LibraryMember> optionalMember = dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == membersID).filter(x -> x.getCurrentlyReading() == null).findFirst();
+        System.out.print("Enter the book's ID to member: ");
         long bookID = scannerN.nextLong();
-        Optional<Book> optionalBook =
-                dao.getLibrary().getBooks().stream()
-                        .filter(x -> x.getBookId() == bookID)
-                        .filter(x -> x.getCurrentHolder() == null).findFirst();
-
+        Optional<Book> optionalBook = dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookID).filter(x -> x.getCurrentHolder() == null).findFirst();
         if (optionalMember.isPresent() && optionalBook.isPresent() ) {
             LibraryMember member = optionalMember.get();
             Book book = optionalBook.get();
-
             if(member.getCurrentlyReading() == null && book.getCurrentHolder() == null){
                 deleteLibraryMemberByID(membersID);
                 deleteLibraryBookByID(bookID);
@@ -105,39 +88,26 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void removeBookFromReading(){
-        System.out.print("Введите ID участника чтобы убрать книгу: ");
+        System.out.print("Enter the member's ID to delete book: ");
         long membersID = scannerN.nextLong();
-        Optional<LibraryMember> optionalMember =
-                dao.getLibrary().getLibraryMembers().stream()
-                        .filter(x -> x.getMemberId() == membersID && x.getCurrentlyReading()!=null)
-                        .findFirst();
-
-        System.out.print("Введите ID книги чтобы удалить из участника: ");
+        Optional<LibraryMember> optionalMember = dao.getLibrary().getLibraryMembers().stream().filter(x -> x.getMemberId() == membersID && x.getCurrentlyReading()!=null).findFirst();
+        System.out.print("Enter the book's ID to delete in member: ");
         long bookID = scannerN.nextLong();
-        Optional<Book> optionalBook =
-                dao.getLibrary().getBooks().stream()
-                        .filter(x -> x.getBookId() == bookID)
-                        .filter(x -> x.getCurrentHolder() != null).findFirst();
-
-        if(optionalMember.isEmpty()) System.out.println("Бул адам базада жок же китеби жок");
+        Optional<Book> optionalBook = dao.getLibrary().getBooks().stream().filter(x -> x.getBookId() == bookID).filter(x -> x.getCurrentHolder() != null).findFirst();
+        if(optionalMember.isEmpty()) System.out.println("We don't find this member!");
         else{
-            if (optionalBook.isEmpty()) System.out.println("Бул китеп базада жок же колдонуучусу жок");
-            else {
+            if (optionalBook.isEmpty()) System.out.println("We don't find this book!");
+            else{
                 LibraryMember member = optionalMember.get();
                 Book book = optionalBook.get();
-
                 member.getFinishedBooks().add(member.getCurrentlyReading());
                 member.setCurrentlyReading(null);
-
                 book.setCurrentHolder(null);
-
                 deleteLibraryMemberByID(membersID);
                 deleteLibraryBookByID(bookID);
                 addLibraryMember(member);
                 addBookToLibrary(book);
             }
         }
-
-
     }
 }
