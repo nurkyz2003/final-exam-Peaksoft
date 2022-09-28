@@ -4,7 +4,10 @@ import libraryProject.dao.Dao;
 import libraryProject.model.Library;
 import libraryProject.service.impl.LibraryServiceImpl;
 
+import java.util.List;
 import java.util.Scanner;
+import java.util.function.BiConsumer;
+import java.util.function.IntConsumer;
 
 public class Main {
     static Scanner scannerN = new Scanner(System.in);
@@ -31,7 +34,8 @@ public class Main {
         System.out.println("Нажмите 8, чтобы удалить книгу по ID.");
         System.out.println("<><><><><><><><><><><><><><><><><><><><><><><><><><><><>");
         System.out.println("Нажмите 9, чтобы ввести memberId участника и bookId книги, добавить в читаемые");
-        System.out.println("Нажмите 10, чтобы ввести memberId участника и bookId книги, добавить в прочитанные");
+        System.out.println("Нажмите 10, чтобы ввести memberId , и добавить его читаемую книгу в прочитанные");
         System.out.println("Нажмите x, чтобы завершить программу.");
     }
+
 }
