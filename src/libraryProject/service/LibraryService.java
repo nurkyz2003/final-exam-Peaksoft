@@ -14,7 +14,7 @@ public interface LibraryService {
 
     void addBookToLibrary(Book book);
 
-    List<Book> getLibraryBooks();
+    void getLibraryBooks();
 
     Book findLibraryBookById(Long id);
 
